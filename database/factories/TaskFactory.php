@@ -27,7 +27,7 @@ class TaskFactory extends Factory
             'name' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'project_id' => Project::all()->random()->id,
-            'user_id' => User::all()->random()->id,
+            'user_id' => User::role('developer')->get()->random()->id,
             'priority' => $this->faker->randomElement(config('enum.priorities')),
             'status' => $this->faker->randomElement(config('enum.status')),
         ];

@@ -14,6 +14,25 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(3)->create();
+        // Create project manager user
+        $projectManager = User::factory()->create([
+            'name' => 'Project Manager User',
+            'email' => 'manager@test.test',
+        ]);
+        $projectManager->assignRole('project-manager');
+
+        // Create developer user
+        $developer = User::factory()->create([
+            'name' => 'Developer User',
+            'email' => 'develper@test.test',
+        ]);
+        $developer->assignRole('developer');
+
+        // Create a second developer user
+        $developer2 = User::factory()->create([
+            'name' => 'Developer User 2',
+            'email' => 'develper2@test.test',
+        ]);
+        $developer2->assignRole('developer');
     }
 }
