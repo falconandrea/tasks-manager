@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskAsignRequest;
 use App\Http\Requests\TaskStatusUpdateRequest;
 use App\Http\Requests\TaskStoreRequest;
 use App\Http\Resources\TaskListResource;
@@ -79,6 +80,19 @@ class TaskController extends Controller
         $this->authorize('status', [Task::class, $id]);
 
         $data = $request->validated();
+
+        $task = Task::find($id);
+        $task->update($data);
+    }
+
+    public function asign(TaskAsignRequest $request, $id)
+    {
+        $this->authorize('asign', [Task::class, $id]);
+
+        $data = $request->validated();
+
+        $data['user_id'] = $data['user'];
+        unset($data['user']);
 
         $task = Task::find($id);
         $task->update($data);
