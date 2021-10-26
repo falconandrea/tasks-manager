@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskStoreRequest;
 use App\Http\Resources\TaskListResource;
 use App\Http\Resources\TaskResource;
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -35,5 +37,19 @@ class TaskController extends Controller
         }
 
         return new TaskResource($task);
+    }
+
+    public function store(TaskStoreRequest $request)
+    {
+        $this->authorize('create', [Task::class]);
+
+        $data = $request->validated();
+
+        $data['user_id'] = $data['user'];
+        unset($data['user']);
+
+        $project = Project::where('id', $data['project'])->first();
+        unset($data['project']);
+        $project->tasks()->create($data);
     }
 }

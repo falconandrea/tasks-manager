@@ -24,6 +24,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/tasks', [TaskController::class, 'index']);
     Route::get('/tasks/{id}', [TaskController::class, 'show']);
+    Route::post('/tasks', [TaskController::class, 'store']);
 
     Route::get('/customers', [CustomerController::class, 'index']);
     Route::get('/customers/{id}', [CustomerController::class, 'show']);
