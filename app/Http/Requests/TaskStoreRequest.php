@@ -26,7 +26,7 @@ class TaskStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'user' => 'required|exists:users,id',
+            'user' => 'sometimes|exists:users,id',
             'project' => 'required|exists:projects,id',
             'description' => 'required|string',
             'status' => ['required', Rule::in(config('enum.status'))],

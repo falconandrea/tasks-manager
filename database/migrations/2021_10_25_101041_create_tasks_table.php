@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('project_id')->unsigned();
             $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             $table->enum('status', ['backlog', 'todo', 'progress', 'done'])->default('backlog');

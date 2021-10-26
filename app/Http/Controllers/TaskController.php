@@ -45,8 +45,10 @@ class TaskController extends Controller
 
         $data = $request->validated();
 
-        $data['user_id'] = $data['user'];
-        unset($data['user']);
+        if (isset($data['user'])) {
+            $data['user_id'] = $data['user'];
+            unset($data['user']);
+        }
 
         $project = Project::where('id', $data['project'])->first();
         unset($data['project']);
