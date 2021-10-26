@@ -54,4 +54,22 @@ class TaskController extends Controller
         unset($data['project']);
         $project->tasks()->create($data);
     }
+
+    public function update(TaskStoreRequest $request, $id)
+    {
+        $this->authorize('update', [Task::class, $id]);
+
+        $data = $request->validated();
+
+        if (isset($data['user'])) {
+            $data['user_id'] = $data['user'];
+            unset($data['user']);
+        }
+
+        $data['project_id'] = $data['project'];
+        unset($data['project']);
+
+        $task = Task::find($id);
+        $task->update($data);
+    }
 }

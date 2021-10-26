@@ -31,4 +31,13 @@ class ProjectController extends Controller
             'name' => $data['name']
         ]);
     }
+
+    public function update(ProjectStoreRequest $request, $id)
+    {
+        $this->authorize('update', [Project::class, $id]);
+        $data = $request->validated();
+
+        $project = Project::find($id);
+        $project->update($data);
+    }
 }
