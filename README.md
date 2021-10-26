@@ -48,3 +48,48 @@ developer2@test.test
 ```
 
 all users have default password "password".
+
+## API
+
+### Customers
+
+```
+# List
+[GET] api/customers
+# Detail
+[GET] api/customers/{id}
+# Create [only for Project Manager]
+[POST] api/customers (fields: name)
+# Update [only for Project Manager]
+[PATCH] api/customers/{id} (fields: name, customer)
+```
+
+### Projects
+
+```
+# List
+[GET] api/projects
+# Detail
+[GET] api/projects/{id}
+# Create [only for Project Manager]
+[POST] api/projects (fields: name, customer)
+# Update [only for Project Manager]
+[PATCH] api/projects/{id} (fields: name, customer)
+```
+
+### Tasks
+
+```
+# List
+[GET] api/tasks
+# Detail
+[GET] api/tasks/{id}
+# Create [only for Project Manager]
+[POST] api/tasks (fields: name, description, project, status, priority, [user])
+# Update [only for Project Manager]
+[PATCH] api/tasks/{id} (fields: name, description, project, status, priority, [user])
+# Assign user [only for Project Manager]
+[PATCH] api/tasks/{id}/assign (fields: user)
+# Change status [only for Developer]
+[PATCH] api/tasks/{id}/status (fields: status)
+```
