@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskStatusUpdateRequest;
 use App\Http\Requests\TaskStoreRequest;
 use App\Http\Resources\TaskListResource;
 use App\Http\Resources\TaskResource;
@@ -68,6 +69,16 @@ class TaskController extends Controller
 
         $data['project_id'] = $data['project'];
         unset($data['project']);
+
+        $task = Task::find($id);
+        $task->update($data);
+    }
+
+    public function status(TaskStatusUpdateRequest $request, $id)
+    {
+        $this->authorize('status', [Task::class, $id]);
+
+        $data = $request->validated();
 
         $task = Task::find($id);
         $task->update($data);
