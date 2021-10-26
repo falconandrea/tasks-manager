@@ -11,6 +11,6 @@ class ProjectPolicy
 
     public function create(User $user)
     {
-        return $user->hasRole('project-manager') ? true : false;
+        return $user->can('add project') ? true : false;
     }
 }
