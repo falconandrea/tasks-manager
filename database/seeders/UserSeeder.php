@@ -24,14 +24,14 @@ class UserSeeder extends Seeder
         // Create developer user
         $developer = User::factory()->create([
             'name' => 'Developer User',
-            'email' => 'develper@test.test',
+            'email' => 'developer@test.test',
         ]);
         $developer->assignRole('developer');
 
         // Create a second developer user
         $developer2 = User::factory()->create([
             'name' => 'Developer User 2',
-            'email' => 'develper2@test.test',
+            'email' => 'developer2@test.test',
         ]);
         $developer2->assignRole('developer');
     }
