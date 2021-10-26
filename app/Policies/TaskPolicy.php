@@ -27,7 +27,7 @@ class TaskPolicy
         return $user->can('change task status') ? true : false;
     }
 
-    public function asign(User $user, $taskId)
+    public function assign(User $user, $taskId)
     {
         Task::where('id', $taskId)->firstOrfail();
         return $user->can('assign task') ? true : false;
