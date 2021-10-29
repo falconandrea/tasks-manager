@@ -24,7 +24,7 @@ class TaskAssignRequest extends FormRequest
     public function rules()
     {
         return [
-            'user' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
         ];
     }
 }

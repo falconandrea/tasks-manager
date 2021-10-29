@@ -23,19 +23,19 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/tasks', [TaskController::class, 'index']);
-    Route::get('/tasks/{id}', [TaskController::class, 'show']);
+    Route::get('/tasks/{task}', [TaskController::class, 'show']);
     Route::post('/tasks', [TaskController::class, 'store']);
-    Route::patch('/tasks/{id}', [TaskController::class, 'update']);
-    Route::patch('/tasks/{id}/status', [TaskController::class, 'status']);
-    Route::patch('/tasks/{id}/assign', [TaskController::class, 'assign']);
+    Route::patch('/tasks/{task}', [TaskController::class, 'update']);
+    Route::patch('/tasks/{task}/status', [TaskController::class, 'status']);
+    Route::patch('/tasks/{task}/assign', [TaskController::class, 'assign']);
 
     Route::get('/customers', [CustomerController::class, 'index']);
-    Route::get('/customers/{id}', [CustomerController::class, 'show']);
+    Route::get('/customers/{customer}', [CustomerController::class, 'show']);
     Route::post('/customers', [CustomerController::class, 'store']);
-    Route::patch('/customers/{id}', [CustomerController::class, 'update']);
+    Route::patch('/customers/{customer}', [CustomerController::class, 'update']);
 
     Route::get('/projects', [ProjectController::class, 'index']);
-    Route::get('/projects/{id}', [ProjectController::class, 'show']);
+    Route::get('/projects/{project}', [ProjectController::class, 'show']);
     Route::post('/projects', [ProjectController::class, 'store']);
-    Route::patch('/projects/{id}', [ProjectController::class, 'update']);
+    Route::patch('/projects/{project}', [ProjectController::class, 'update']);
 });

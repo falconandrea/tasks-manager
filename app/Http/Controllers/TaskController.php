@@ -7,7 +7,6 @@ use App\Http\Requests\TaskStatusUpdateRequest;
 use App\Http\Requests\TaskStoreRequest;
 use App\Http\Resources\TaskListResource;
 use App\Http\Resources\TaskResource;
-use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -25,18 +24,9 @@ class TaskController extends Controller
         return TaskListResource::collection($tasks->get());
     }
 
-    public function show(Request $request)
+    public function show(Task $task)
     {
-
-        $task = Task::find($request->id);
-        if (!$task) {
-            return response()->json(['error' => 'Not found'], 404);
-        }
-
-        // Developer can see only his tasks
-        if ($request->user()->hasRole('developer') && $task->user->id != $request->user()->id) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        $this->authorize('show', $task);
 
         return new TaskResource($task);
     }
@@ -46,55 +36,38 @@ class TaskController extends Controller
         $this->authorize('create', [Task::class]);
 
         $data = $request->validated();
+        $task = Task::create($data);
 
-        if (isset($data['user'])) {
-            $data['user_id'] = $data['user'];
-            unset($data['user']);
-        }
-
-        $project = Project::where('id', $data['project'])->first();
-        unset($data['project']);
-        $project->tasks()->create($data);
+        return new TaskResource($task);
     }
 
-    public function update(TaskStoreRequest $request, $id)
+    public function update(TaskStoreRequest $request, Task $task)
     {
-        $this->authorize('update', [Task::class, $id]);
+        $this->authorize('update', $task);
 
         $data = $request->validated();
-
-        if (isset($data['user'])) {
-            $data['user_id'] = $data['user'];
-            unset($data['user']);
-        }
-
-        $data['project_id'] = $data['project'];
-        unset($data['project']);
-
-        $task = Task::find($id);
         $task->update($data);
+
+        return new TaskResource($task);
     }
 
-    public function status(TaskStatusUpdateRequest $request, $id)
+    public function status(TaskStatusUpdateRequest $request, Task $task)
     {
-        $this->authorize('status', [Task::class, $id]);
+        $this->authorize('status', $task);
 
         $data = $request->validated();
-
-        $task = Task::find($id);
         $task->update($data);
+
+        return new TaskResource($task);
     }
 
-    public function assign(TaskAssignRequest $request, $id)
+    public function assign(TaskAssignRequest $request, Task $task)
     {
-        $this->authorize('assign', [Task::class, $id]);
+        $this->authorize('assign', $task);
 
         $data = $request->validated();
-
-        $data['user_id'] = $data['user'];
-        unset($data['user']);
-
-        $task = Task::find($id);
         $task->update($data);
+
+        return new TaskResource($task);
     }
 }

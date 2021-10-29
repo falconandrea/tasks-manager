@@ -15,21 +15,31 @@ class TaskPolicy
         return $user->can('add task') ? true : false;
     }
 
-    public function update(User $user, $taskId)
+    public function show(User $user, Task $task)
     {
-        Task::where('id', $taskId)->firstOrfail();
-        return $user->can('add task') ? true : false;
+        // Developer can see only his tasks
+        if ($user->hasRole('developer') && $task->user->id != $user->id) {
+            return false;
+        }
+        return true;
     }
 
-    public function status(User $user, $taskId)
+    public function update(User $user)
     {
-        Task::where('id', $taskId)->firstOrfail();
+        return $user->can('add task');
+    }
+
+    public function status(User $user, Task $task)
+    {
+        // Developer can see only his tasks
+        if ($user->hasRole('developer') && $task->user->id != $user->id) {
+            return false;
+        }
         return $user->can('change task status') ? true : false;
     }
 
-    public function assign(User $user, $taskId)
+    public function assign(User $user, Task $task)
     {
-        Task::where('id', $taskId)->firstOrfail();
         return $user->can('assign task') ? true : false;
     }
 }
