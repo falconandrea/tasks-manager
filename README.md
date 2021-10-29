@@ -61,7 +61,7 @@ all users have default password "password".
 # Create [only for Project Manager]
 [POST] api/customers (fields: name)
 # Update [only for Project Manager]
-[PATCH] api/customers/{id} (fields: name, customer)
+[PATCH] api/customers/{id} (fields: name)
 ```
 
 ### Projects
@@ -72,9 +72,9 @@ all users have default password "password".
 # Detail
 [GET] api/projects/{id}
 # Create [only for Project Manager]
-[POST] api/projects (fields: name, customer)
+[POST] api/projects (fields: name, customer_id)
 # Update [only for Project Manager]
-[PATCH] api/projects/{id} (fields: name, customer)
+[PATCH] api/projects/{id} (fields: name, customer_id)
 ```
 
 ### Tasks
@@ -85,11 +85,11 @@ all users have default password "password".
 # Detail
 [GET] api/tasks/{id}
 # Create [only for Project Manager]
-[POST] api/tasks (fields: name, description, project, status, priority, [user])
+[POST] api/tasks (fields: name, description, project_id, status, priority, [user_id])
 # Update [only for Project Manager]
-[PATCH] api/tasks/{id} (fields: name, description, project, status, priority, [user])
+[PATCH] api/tasks/{id} (fields: name, description, project_id, status, priority, [user_id])
 # Assign user [only for Project Manager]
-[PATCH] api/tasks/{id}/assign (fields: user)
+[PATCH] api/tasks/{id}/assign (fields: user_id)
 # Change status [only for Developer]
 [PATCH] api/tasks/{id}/status (fields: status)
 ```
