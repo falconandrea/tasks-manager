@@ -17,9 +17,9 @@ class TaskListResource extends JsonResource
         return [
             'id'            => $this->id,
             'name'          => $this->name,
-            'user_id'       => new UserResource($this->user),
+            'user'          => new UserResource($this->user),
             'description'   => $this->description,
-            'project_id'    => new ProjectResource($this->project),
+            'project'       => new ProjectResource($this->project),
             'status'        => $this->status,
             'priority'      => $this->priority,
             'created_at'    => $this->created_at->toDateTimeString(),
