@@ -24,17 +24,18 @@ class CustomerController extends Controller
         $this->authorize('create', [Customer::class]);
 
         $data = $request->validated();
+        $customer = Customer::create($data);
 
-        $customer = new Customer();
-        $customer->create($data);
+        return new CustomerResource($customer);
     }
 
-    public function update(CustomerStoreRequest $request, $id)
+    public function update(CustomerStoreRequest $request, Customer $customer)
     {
-        $this->authorize('update', [Customer::class, $id]);
-        $data = $request->validated();
+        $this->authorize('update', $customer);
 
-        $customer = Customer::find($id);
+        $data = $request->validated();
         $customer->update($data);
+
+        return new CustomerResource($customer);
     }
 }

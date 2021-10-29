@@ -15,9 +15,8 @@ class CustomerPolicy
         return $user->can('add customer') ? true : false;
     }
 
-    public function update(User $user, $customerId)
+    public function update(User $user, Customer $customer)
     {
-        Customer::where('id', $customerId)->firstOrfail();
         return $user->can('add customer') ? true : false;
     }
 }
