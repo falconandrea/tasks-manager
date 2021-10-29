@@ -1,27 +1,10 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-## Getting started
+## Initial config
 
-Copy .env file and update APP_NAME and DB values (don't use root).
+Follow the guide here [Start Laravel Project](https://github.com/falconandrea/start-laravel-project/blob/main/README.md)
 
-```
-cp .env.example .env
-```
-
-Use Sail for local development.
-
-```
-# create alias
-alias sail='bash vendor/bin/sail'
-# start evironment
-sail up -d
-# generate key in env file
-sail artisan key:generate
-# close environment
-sail down
-```
-
-Init database
+## Init database
 
 ```
 # create database tables with migrations
