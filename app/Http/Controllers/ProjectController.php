@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Resources\ProjectResource;
-use App\Models\Customer;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -25,19 +24,18 @@ class ProjectController extends Controller
         $this->authorize('create', [Project::class]);
 
         $data = $request->validated();
+        $project = Project::create($data);
 
-        $customer = Customer::where('id', $data['customer'])->first();
-        $customer->projects()->create([
-            'name' => $data['name']
-        ]);
+        return new ProjectResource($project);
     }
 
-    public function update(ProjectStoreRequest $request, $id)
+    public function update(ProjectStoreRequest $request, Project $project)
     {
-        $this->authorize('update', [Project::class, $id]);
-        $data = $request->validated();
+        $this->authorize('update', $project);
 
-        $project = Project::find($id);
+        $data = $request->validated();
         $project->update($data);
+
+        return new ProjectResource($project);
     }
 }

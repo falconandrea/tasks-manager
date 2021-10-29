@@ -25,7 +25,7 @@ class ProjectStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'customer' => 'required|exists:customers,id',
+            'customer_id' => 'required|exists:customers,id',
         ];
     }
 }
